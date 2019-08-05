@@ -6,11 +6,12 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"strconv"
 	"strings"
 
-	gopdf "github.com/signintech/pdft/minigopdf"
+	gopdf "github.com/gunmoneytable/pdft/minigopdf"
 )
 
 //ErrAddSameFontName add same font name
@@ -81,6 +82,18 @@ func (i *PDFt) Open(filepath string) error {
 	defer f.Close()
 
 	return i.OpenFrom(f)
+}
+
+//OpenFromUrl open url of pdf file
+func (i *PDFt) OpenFromUrl(filepath string) error {
+	f, err := http.Get(filepath)
+	if err != nil {
+		return err
+	}
+
+	resp := f.Body
+
+	return i.OpenFrom(resp)
 }
 
 //OpenFrom open pdf from io.Reader

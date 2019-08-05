@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	gopdf "github.com/signintech/pdft/minigopdf"
+	gopdf "github.com/gunmoneytable/pdft/minigopdf"
 )
 
 func TestPDF(t *testing.T) {

@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"regexp"
 	"strconv"
@@ -205,7 +206,16 @@ func (t *TTFParser) SetUseKerning(use bool) {
 
 //Parse parse
 func (t *TTFParser) Parse(filepath string) error {
-	data, err := ioutil.ReadFile(filepath)
+	// data, err := ioutil.ReadFile(filepath)
+
+	f, err := http.Get(filepath)
+	if err != nil {
+		return err
+	}
+
+	resp := f.Body
+
+	data, err := ioutil.ReadAll(resp)
 	if err != nil {
 		return err
 	}
